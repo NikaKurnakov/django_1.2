@@ -33,8 +33,13 @@ class Visit(models.Model):
 
 def get_duration(visit):
     entered = django.utils.timezone.localtime(visit.entered_at)
-    delta = django.utils.timezone.localtime() - entered
-    return delta
+    leaved = django.utils.timezone.localtime(visit.leaved_at)
+    if leaved:
+        delta = leaved - entered
+        return delta
+    else:
+        delta = django.utils.timezone.localtime() - entered
+        return delta
 
 def format_duration(delta):
     seconds = delta.total_seconds()
@@ -44,8 +49,11 @@ def format_duration(delta):
     return duration
 
 def is_visit_long(visit):
+
     entered = django.utils.timezone.localtime(visit.entered_at)
     leaved = django.utils.timezone.localtime(visit.leaved_at)
     res = leaved - entered
     if res < datetime.timedelta(minutes=60):
-        return res
+        return True
+    else:
+        return False
