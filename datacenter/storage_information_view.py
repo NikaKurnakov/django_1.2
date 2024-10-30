@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 
 def storage_information_view(request):
-    all_visits = Visit.objects.objects.filter(leaved_at__isnull=True)
+    certain_visits = Visit.objects.objects.filter(leaved_at__isnull=True)
 
     for visit in all_visits:
         if not visit.leaved_at:
