@@ -49,4 +49,4 @@ def format_duration(delta):
 
 def is_visit_long(visit):
     res = get_duration(visit)
-    return res < datetime.timedelta(minutes=60)
+    return res > datetime.timedelta(minutes=60)
